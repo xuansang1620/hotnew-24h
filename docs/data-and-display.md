@@ -12,7 +12,7 @@ Nguồn: https://docs.google.com/spreadsheets/d/1BKvEFsK-SjtW0CPBylrXOWSNIo7vDEW
 | Phần (Section) | section | Bộ lọc phần tin và nhãn cuối thẻ; tên gốc được giữ trong nội dung mở rộng |
 | Mục / Lĩnh vực (Category) | category | Nhãn chuyên mục, bộ lọc có số tin |
 | Tiêu đề (Headline) | title | Tiêu đề hiển thị đầy đủ |
-| Thông tin chính & Số liệu (Main Information & Figures) | summary | Xem nhanh 3 dòng; mở rộng để đọc toàn bộ |
+| Thông tin chính & Số liệu (Main Information & Figures) | summary | Hiển thị đầy đủ trên điện thoại/tablet (rộng tối đa 900 px), cỡ chữ 14 px trên điện thoại; desktop xem nhanh 3 dòng và mở rộng để đọc toàn bộ |
 | Bối cảnh / Nguyên nhân (Context & Background) | context | Khối nền xanh; có bản xem nhanh và nội dung đầy đủ |
 | Tác động / Cơ hội & Rủi ro (Impact, Opportunities & Risks) | analysis | Khối nền vàng; giữ nguyên nội dung gộp của nguồn |
 | Link bài gốc (Source URL) | sourceUrl | Nút đọc bài gốc; tên miền hiển thị nếu chưa có tên nguồn riêng |

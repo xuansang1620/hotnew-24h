@@ -99,6 +99,8 @@ h1 em {color: var(--accent); font-style: normal}
   .overview {gap: 14px}.overview > div {padding-left: 14px}
   .toolbar {flex-wrap: wrap}.searchbox {flex-basis: 100%}
   .toolbar select {flex: 1; min-width: 0}.insights {grid-template-columns: 1fr}
+  .preview .main-info p {display: block; -webkit-line-clamp: unset; overflow: visible}
+  .news-card .main-info p {font-size: 13px; line-height: 1.7}
 }
 @media (max-width: 640px) {
   .wrap {width: calc(100% - 28px)}.topinner {height: 54px}.brandmark {font-size: 28px}.brand {font-size: 11px; gap: 9px}.brand small {font-size: 7px}
@@ -109,6 +111,7 @@ h1 em {color: var(--accent); font-style: normal}
   .filter-panel {padding: 10px 10px 0}.toolbar {gap: 7px}.toolbar select {font-size: 11px; padding: 6px}.reset {font-size: 11px}
   .sectionhead {align-items: flex-start; padding-top: 16px}.sectionhead > div {display: block}.sectionhead h2 {font-size: 17px}.expand-control {font-size: 10px; padding-top: 4px; max-width: 120px}
   .news-grid {grid-template-columns: 1fr; gap: 12px}.news-card {padding: 14px 14px 0}.card-heading h3 {font-size: 16px}
+  .news-card .main-info p {font-size: 14px}
   .insights {grid-template-columns: 1fr 1fr}.insights p {-webkit-line-clamp: 4}
   .footer .wrap {gap: 8px}.footer p {flex-basis: 100%; min-width: 0}
 }
