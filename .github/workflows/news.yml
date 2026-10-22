@@ -1,0 +1,59 @@
+name: Đồng bộ bản tin
+on:
+  schedule:
+    # UTC = giờ Việt Nam trừ 7
+    - cron: '25 0 * * *'
+    - cron: '35 4 * * *'
+    - cron: '35 10 * * *'
+    - cron: '35 15 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: news-sync
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test
+        run: python -m unittest discover -s tests -v
+      - name: Sync
+        env:
+          SHEET_CSV_URL: ${{ vars.SHEET_CSV_URL }}
+        run: python scripts/sync_news.py
+      - name: Detect
+        id: diff
+        run: |
+          if git diff --quiet -- public/data/; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Commit
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/data/
+          git commit -m 'data: update news feed'
+          git push
+      - uses: actions/configure-pages@v5
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deploy
+        if: steps.diff.outputs.changed == 'true' || github.event_name == 'workflow_dispatch'
