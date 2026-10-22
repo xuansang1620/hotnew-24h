@@ -2,6 +2,8 @@
 
 Website tin tức dùng Google Sheets công khai và GitHub Pages. Chạy lịch 07:25, 11:35, 17:35, 22:35 giờ Việt Nam.
 
+Giao diện gọn với thông tin chính, bối cảnh/nguyên nhân, tác động/cơ hội/rủi ro, nguồn và ngày cập nhật. Có bộ lọc phần tin, chuyên mục, thời gian và tìm kiếm toàn bộ nội dung. Xem [phân tích dữ liệu và thiết kế hiển thị](docs/data-and-display.md).
+
 ## Triển khai
 
 1. Tạo repository GitHub, push toàn bộ thư mục này vào nhánh `main`.

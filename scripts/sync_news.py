@@ -31,7 +31,7 @@ ALIASES = {
     'region': ['region', 'khu vuc', 'pham vi'],
     'publishedAt': ['published at', 'ngay dang', 'ngay xuat ban', 'thoi gian dang'],
     'collectedAt': ['collected at', 'ngay thu thap', 'thoi gian thu thap', 'ngay cap nhat', 'Ngày cập nhật (Date)'],
-    'imageUrl': ['image url', 'hinh anh', 'thumbnail', 'anh'],
+    'imageUrl': ['image url', 'hinh anh', 'thumbnail', 'anh', 'Thumbnail URL'],
     'analysis': ['analysis', 'phan tich', 'nhan dinh', 'tac dong', 'Tác động / Cơ hội & Rủi ro (Impact, Opportunities & Risks)'],
 }
 
@@ -53,6 +53,9 @@ def parse_date(s):
     s = (s or '').strip()
     if not s:
         return None
+    # Sheets may include an explicit offset such as "2026-10-22 14:01 GMT+7".
+    s = re.sub(r'\s+(?:GMT|UTC)([+-])(\d{1,2})(?::?(\d{2}))?$',
+               lambda m: f'{m[1]}{int(m[2]):02d}:{m[3] or "00"}', s, flags=re.I)
     try:
         d = datetime.fromisoformat(s.replace('Z', '+00:00'))
     except ValueError:

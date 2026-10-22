@@ -45,6 +45,16 @@ class TestSync(unittest.TestCase):
     def test_date(self):
         self.assertEqual(parse_date('22/10/2026 07:00'), '2026-10-22T00:00:00+00:00')
 
+    def test_sheet_gmt_date_and_thumbnail(self):
+        self.assertEqual(parse_date('2026-10-22 14:01 GMT+7'), '2026-10-22T07:01:00+00:00')
+        self.assertEqual(parse_date('2026-10-22 14:01 UTC-5:30'), '2026-10-22T19:31:00+00:00')
+        self.assertIsNone(parse_date('not a date'))
+        raw = csv_sample('https://example.com/a').splitlines()
+        raw[0] += ',Thumbnail URL'
+        raw[1] += ',https://example.com/image.jpg'
+        items, _ = import_csv('\n'.join(raw), [])
+        self.assertEqual(items[0]['imageUrl'], 'https://example.com/image.jpg')
+
     def test_import_and_dedupe(self):
         csv_data = 'Tiêu đề,Link,Nguồn,Ngày đăng\nTin A,https://example.com/a?utm_source=x,Báo A,22/10/2026\nTin A,https://example.com/a,Báo A,22/10/2026\n'
         items, info = import_csv(csv_data, [])
