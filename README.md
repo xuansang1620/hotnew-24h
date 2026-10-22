@@ -13,4 +13,6 @@ Cần Python 3.11 trở lên. Cài phụ thuộc: `python -m pip install -r requ
 
 Chạy thử: `python -m unittest discover -s tests -v`, sau đó `python scripts/sync_news.py` và `python -m http.server 8000 -d public`.
 
-**Lưu ý:** Chưa thể xác minh schema Sheet từ môi trường này. Cần đối chiếu tiêu đề thật với `ALIASES` trong script. Không công khai thông tin nội bộ trên Sheet.
+Script hỗ trợ tiêu đề cột song ngữ của Sheet hiện tại. Nếu CSV chỉ xuất chữ “Xem nguồn”, script đọc thêm bản XLSX công khai để lấy URL trong công thức `HYPERLINK` hoặc hyperlink của ô; không thực thi công thức. Chỉ khôi phục khi tiêu đề khớp và xác định được duy nhất một URL. Nếu dùng nguồn CSV khác, cột link phải chứa URL HTTP/HTTPS thật.
+
+**Lưu ý:** Sheet phải cho phép đọc công khai cả CSV và XLSX nếu sử dụng liên kết ẩn. Không công khai thông tin nội bộ trên Sheet. Nội dung tin được giữ theo nguồn, chưa được kiểm chứng biên tập.
