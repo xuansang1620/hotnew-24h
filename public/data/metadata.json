@@ -1,1 +1,22 @@
-{"lastSync":null,"sourceRows":0,"validRows":0,"newRows":0,"totalRows":0,"status":"awaiting-first-sync"}
+{
+  "lastSync": "2026-10-22T05:35:58.615926+00:00",
+  "status": "ok",
+  "sourceRows": 32,
+  "validRows": 32,
+  "newRows": 28,
+  "totalRows": 28,
+  "columns": {
+    "title": "Tiêu đề (Headline)",
+    "summary": "Thông tin chính & Số liệu (Main Information & Figures)",
+    "sourceUrl": "Link bài gốc (Source URL)",
+    "source": null,
+    "category": "Mục / Lĩnh vực (Category)",
+    "section": "Phần (Section)",
+    "context": "Bối cảnh / Nguyên nhân (Context & Background)",
+    "region": null,
+    "publishedAt": null,
+    "collectedAt": "Ngày cập nhật (Date)",
+    "imageUrl": null,
+    "analysis": "Tác động / Cơ hội & Rủi ro (Impact, Opportunities & Risks)"
+  }
+}
