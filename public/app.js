@@ -52,6 +52,65 @@ function infoBlock(label, value, className) {
   block.append(node('h4', '', label), node('p', '', value || 'Chưa có thông tin trong bảng tin.'));
   return block;
 }
+let readerOpener = null;
+function setReaderMode(mode) {
+  const original = mode === 'original';
+  $('#reader-original-panel').hidden = !original;
+  $('#reader-summary-panel').hidden = original;
+  $('#reader-original').setAttribute('aria-pressed', String(original));
+  $('#reader-summary').setAttribute('aria-pressed', String(!original));
+}
+function openReader(article, opener) {
+  const url = allowedUrl(article.sourceUrl);
+  if (!url) return;
+  const reader = $('#article-reader');
+  readerOpener = opener;
+  $('#reader-title').textContent = text(article.title);
+  $('#reader-source').textContent = url.hostname.replace(/^www\./, '');
+  $('#reader-external').href = url.href;
+  $('#reader-frame').title = `Bài gốc: ${text(article.title)}`;
+  const summary = $('#reader-summary-panel');
+  summary.replaceChildren(node('p', 'reader-attribution', 'Nội dung tổng hợp từ bảng tin. Xem bài gốc để đối chiếu thông tin và số liệu.'),
+    infoBlock('Thông tin chính & số liệu', text(article.summary), 'main-info'),
+    infoBlock('Bối cảnh / Nguyên nhân', text(article.context), 'context-info'),
+    infoBlock('Tác động / Cơ hội & Rủi ro', text(article.analysis), 'impact-info'));
+  // HTTPS pages cannot embed insecure HTTP articles. Keep the local brief usable.
+  const insecure = location.protocol === 'https:' && url.protocol === 'http:';
+  $('#reader-note').textContent = insecure
+    ? 'Nguồn dùng kết nối HTTP nên không thể xem trong khung này. Bạn có thể đọc bản tin tổng hợp hoặc mở trang nguồn.'
+    : 'Nếu nguồn không cho xem bài trong khung, chọn “Bản tin tổng hợp” để đọc ngay tại đây hoặc “Mở trang nguồn”.';
+  $('#reader-original').disabled = insecure;
+  setReaderMode(insecure ? 'summary' : 'original');
+  // Never grant same-origin scripts both sandbox privileges on our own origin.
+  $('#reader-frame').setAttribute('sandbox', url.origin === location.origin
+    ? 'allow-scripts allow-forms' : 'allow-scripts allow-same-origin allow-forms');
+  if (!insecure) $('#reader-frame').src = url.href;
+  reader.showModal();
+  document.body.classList.add('reader-open');
+}
+$('#reader-original').addEventListener('click', () => setReaderMode('original'));
+$('#reader-summary').addEventListener('click', () => setReaderMode('summary'));
+$('#reader-close').addEventListener('click', () => $('#article-reader').close());
+$('#reader-maximize').addEventListener('click', () => {
+  const wide = $('#article-reader').classList.toggle('reader-wide');
+  $('#reader-maximize').setAttribute('aria-pressed', String(wide));
+  $('#reader-maximize').textContent = wide ? 'Thu nhỏ' : 'Toàn màn hình';
+});
+$('#article-reader').addEventListener('click', event => {
+  if (event.target !== $('#article-reader')) return;
+  const bounds = event.target.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) event.target.close();
+});
+$('#article-reader').addEventListener('close', () => {
+  $('#reader-frame').removeAttribute('src');
+  $('#reader-summary-panel').replaceChildren();
+  $('#article-reader').classList.remove('reader-wide');
+  $('#reader-maximize').setAttribute('aria-pressed', 'false');
+  $('#reader-maximize').textContent = 'Toàn màn hình';
+  document.body.classList.remove('reader-open');
+  if (readerOpener?.isConnected) readerOpener.focus({preventScroll: true});
+  readerOpener = null;
+});
 function renderCard(article) {
   const card = node('article', 'news-card');
   const meta = node('div', 'meta');
@@ -95,8 +154,13 @@ function renderCard(article) {
   footer.append(node('span', 'section-label', sectionName(article)));
   const url = allowedUrl(article.sourceUrl);
   if (url) {
-    const link = node('a', 'source-link', 'Đọc bài gốc ↗');
-    link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer nofollow'; footer.append(link);
+    const link = node('a', 'source-link', 'Đọc bài gốc');
+    link.href = url.href; link.rel = 'nofollow'; link.setAttribute('aria-haspopup', 'dialog');
+    link.addEventListener('click', event => {
+      if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault(); openReader(article, link);
+    });
+    footer.append(link);
   }
   card.append(meta, heading, provenance, preview, details, footer);
   return card;

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#10233c">
   <meta name="description" content="Bản tin 24h: thông tin chính, bối cảnh và tác động từ nguồn tin Việt Nam và thế giới.">
   <title>Bản tin 24h | Điểm tin & góc nhìn</title>
-  <link rel="stylesheet" href="styles.css?v=20261022-mobile-full">
+  <link rel="stylesheet" href="styles.css?v=20261023-reader">
 </head>
 <body>
   <a class="skip-link" href="#news">Đến danh sách tin</a>
@@ -37,6 +37,19 @@
     <div class="more"><button id="more" type="button" hidden>Tải thêm tin</button></div>
   </main>
   <footer class="footer"><div class="wrap"><strong>BẢN TIN 24h</strong><p>Bối cảnh và tác động là nội dung từ bảng tin tổng hợp. Đọc bài gốc để kiểm tra thông tin, số liệu và thời điểm xuất bản.</p><span>Giờ hiển thị: Việt Nam (UTC+7)</span></div></footer>
-  <script src="app.js" defer></script>
+  <dialog id="article-reader" class="reader" aria-labelledby="reader-title" aria-describedby="reader-note">
+    <header class="reader-header">
+      <div class="reader-heading"><span class="reader-eyebrow">ĐỌC BÀI GỐC</span><h2 id="reader-title"></h2><span id="reader-source"></span></div>
+      <div class="reader-actions"><button id="reader-maximize" type="button" aria-pressed="false">Toàn màn hình</button><button id="reader-close" class="reader-close" type="button" autofocus>Đóng ✕</button></div>
+    </header>
+    <div class="reader-toolbar">
+      <div class="reader-modes" role="group" aria-label="Chế độ đọc"><button id="reader-original" type="button" aria-pressed="true" aria-controls="reader-original-panel">Bài gốc</button><button id="reader-summary" type="button" aria-pressed="false" aria-controls="reader-summary-panel">Bản tin tổng hợp</button></div>
+      <a id="reader-external" target="_blank" rel="noopener noreferrer nofollow">Mở trang nguồn ↗</a>
+    </div>
+    <p id="reader-note" class="reader-note">Nếu nguồn không cho xem bài trong khung, chọn “Bản tin tổng hợp” để đọc ngay tại đây hoặc “Mở trang nguồn”.</p>
+    <div id="reader-original-panel" class="reader-original-panel"><iframe id="reader-frame" title="Nội dung bài báo gốc" sandbox="allow-scripts allow-same-origin allow-forms" referrerpolicy="no-referrer"></iframe></div>
+    <section id="reader-summary-panel" class="reader-summary-panel" aria-label="Bản tin tổng hợp từ bảng dữ liệu" hidden></section>
+  </dialog>
+  <script src="app.js?v=20261023-reader" defer></script>
 </body>
 </html>

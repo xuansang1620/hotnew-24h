@@ -94,6 +94,32 @@ h1 em {color: var(--accent); font-style: normal}
 .footer .wrap {display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap}
 .footer strong {color: var(--text); letter-spacing: .07em; white-space: nowrap}
 .footer p {flex: 1; min-width: 240px; margin: 0}
+body.reader-open {overflow: hidden}
+.reader {width: min(1120px, calc(100vw - 48px)); height: 92vh; height: 92dvh; max-width: 100vw; max-height: 100vh; max-height: 100dvh; padding: 0; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--card); box-shadow: 0 24px 90px #0005; overflow: hidden}
+.reader[open] {display: flex; flex-direction: column}
+.reader::backdrop {background: #07111dcc}
+.reader-header {display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; padding: 16px 20px 12px; flex-shrink: 0}
+.reader-heading {min-width: 0}
+.reader-eyebrow {color: var(--accent); font-size: 9px; letter-spacing: .1em; font-weight: 800}
+.reader-heading h2 {font-size: 16px; line-height: 1.4; margin: 4px 0; overflow-wrap: anywhere; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden}
+#reader-source {color: var(--muted); font-size: 11px; overflow-wrap: anywhere}
+.reader-actions {display: flex; gap: 8px; flex-shrink: 0}
+.reader button {min-height: 38px; border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; background: var(--card); color: var(--text); font-size: 12px}
+.reader .reader-close {background: var(--navy); color: #fff; border-color: var(--navy)}
+.reader-toolbar {display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-shrink: 0}
+.reader-modes {display: flex; gap: 6px}
+.reader-modes button[aria-pressed="true"] {background: var(--blue-bg); color: var(--blue); border-color: var(--blue)}
+.reader-modes button:disabled {opacity: .5; cursor: not-allowed}
+#reader-external {font-size: 11px; font-weight: 700; color: var(--accent); white-space: nowrap}
+.reader-note {font-size: 11px; color: var(--muted); padding: 9px 20px; margin: 0; background: var(--bg); flex-shrink: 0}
+.reader-original-panel {flex: 1; min-height: 0; display: flex; background: #fff}
+#reader-frame {display: block; width: 100%; height: 100%; flex: 1; border: 0; background: #fff; color-scheme: light}
+.reader-summary-panel {flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 20px; line-height: 1.7}
+.reader-summary-panel > section {margin-bottom: 16px}
+.reader-summary-panel h4 {font-size: 12px; margin: 0 0 6px}
+.reader-summary-panel p {font-size: 14px; white-space: pre-line; overflow-wrap: anywhere; margin: 0}
+.reader-summary-panel .reader-attribution {font-size: 11px; color: var(--muted); margin-bottom: 16px}
+.reader.reader-wide {width: 100vw; height: 100vh; height: 100dvh; margin: 0; border: 0; border-radius: 0}
 @media (min-width: 1500px) {.wrap {width: min(1380px, calc(100% - 64px))}}
 @media (max-width: 900px) {
   .overview {gap: 14px}.overview > div {padding-left: 14px}
@@ -103,6 +129,14 @@ h1 em {color: var(--accent); font-style: normal}
   .news-card .main-info p {font-size: 13px; line-height: 1.7}
 }
 @media (max-width: 640px) {
+  .reader {width: 100vw; height: 100vh; height: 100dvh; margin: 0; border: 0; border-radius: 0}
+  .reader-header {gap: 10px; padding: max(10px, env(safe-area-inset-top)) 12px 10px}
+  .reader-heading h2 {font-size: 14px}.reader-actions button {min-height: 44px; padding: 8px 10px}
+  #reader-maximize {display: none}
+  .reader-toolbar {padding: 9px 12px; flex-wrap: wrap}
+  .reader-modes {flex: 1}.reader-modes button {min-height: 44px; flex: 1}
+  .reader-note {padding: 8px 12px; font-size: 11px}
+  .reader-summary-panel {padding: 16px 14px max(16px, env(safe-area-inset-bottom))}
   .wrap {width: calc(100% - 28px)}.topinner {height: 54px}.brandmark {font-size: 28px}.brand {font-size: 11px; gap: 9px}.brand small {font-size: 7px}
   .header-actions {gap: 10px}.header-date {font-size: 10px}
   .intro {align-items: flex-start; gap: 14px; padding: 18px 0 14px; flex-direction: column}h1 {font-size: 28px}.intro p {font-size: 11px}
