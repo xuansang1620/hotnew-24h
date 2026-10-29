@@ -1,10 +1,10 @@
 {
-  "lastSync": "2026-10-29T00:16:44.630744+00:00",
+  "lastSync": "2026-10-29T06:01:44.098224+00:00",
   "status": "ok",
-  "sourceRows": 913,
-  "validRows": 913,
-  "newRows": 21,
-  "totalRows": 935,
+  "sourceRows": 937,
+  "validRows": 937,
+  "newRows": 24,
+  "totalRows": 959,
   "columns": {
     "title": "Tiêu đề (Headline)",
     "summary": "Thông tin chính & Số liệu (Main Information & Figures)",
